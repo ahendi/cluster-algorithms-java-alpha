@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. -->
+<project basedir="." default="build" name="Clusterer">
+    <property environment="env"/>
+    <property name="ECLIPSE_HOME" value="../../../../../../programming/eclipse"/>
+    <property name="junit.output.dir" value="junit"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.6"/>
+    <property name="source" value="1.6"/>
+    <path id="JUnit 4.libraryclasspath">
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.junit4_4.3.1/junit.jar"/>
+    </path>
+    <path id="Clusterer.classpath">
+        <pathelement location="bin"/>
+        <path refid="JUnit 4.libraryclasspath"/>
+    </path>
+    <path id="run.[Scrapbook] scrapbook.jpage.classpath">
+        <pathelement location="../../../../../../programming/eclipse/configuration/org.eclipse.osgi/bundles/305/1/.cp/snippetsupport.jar"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src" excludes="**/*.launch, **/*.java"/>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="Clusterer.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
+        <copy todir="${ant.library.dir}">
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </copy>
+        <unzip dest="${ant.library.dir}">
+            <patternset includes="jdtCompilerAdapter.jar"/>
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </unzip>
+    </target>
+    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
+        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+        <antcall target="build"/>
+    </target>
+    <target name="AllTests">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="tests.AllTests" todir="${junit.output.dir}"/>
+            <jvmarg line="-ea"/>
+            <classpath refid="Clusterer.classpath"/>
+        </junit>
+    </target>
+    <target name="AllTests.suite">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="tests.AllTests" todir="${junit.output.dir}"/>
+            <classpath refid="Clusterer.classpath"/>
+        </junit>
+    </target>
+    <target name="CIndexTest">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="tests.validationIndices.CIndexTest" todir="${junit.output.dir}"/>
+            <classpath refid="Clusterer.classpath"/>
+        </junit>
+    </target>
+    <target name="ClusterCalculatorGUI">
+        <java classname="ui.ClusterCalculatorGUI" failonerror="true" fork="yes">
+            <classpath refid="Clusterer.classpath"/>
+        </java>
+    </target>
+    <target name="DBIndexTest">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="tests.validationIndices.DBIndexTest" todir="${junit.output.dir}"/>
+            <classpath refid="Clusterer.classpath"/>
+        </junit>
+    </target>
+    <target name="DBSCANTest">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="tests.DBSCANTest" todir="${junit.output.dir}"/>
+            <classpath refid="Clusterer.classpath"/>
+        </junit>
+    </target>
+    <target name="DunnIndexTest.testCalculateIndex">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="tests.validationIndices.DunnIndexTest" todir="${junit.output.dir}"/>
+            <classpath refid="Clusterer.classpath"/>
+        </junit>
+    </target>
+    <target name="EuclideanDistanceTest">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="tests.EuclideanDistanceTest" todir="${junit.output.dir}"/>
+            <classpath refid="Clusterer.classpath"/>
+        </junit>
+    </target>
+    <target name="GlobalKMeansRunner">
+        <java classname="runner.GlobalKMeansRunner" failonerror="true" fork="yes">
+            <classpath refid="Clusterer.classpath"/>
+        </java>
+    </target>
+    <target name="GlobalKMeansTest">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="tests.GlobalKMeansTest" todir="${junit.output.dir}"/>
+            <jvmarg line="-ea"/>
+            <classpath refid="Clusterer.classpath"/>
+        </junit>
+    </target>
+    <target name="GlobalKMeansTest.testGlobalKMeans">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="tests.GlobalKMeansTest" todir="${junit.output.dir}"/>
+            <classpath refid="Clusterer.classpath"/>
+        </junit>
+    </target>
+    <target name="GoodmanKruskalTest">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="tests.validationIndices.GoodmanKruskalTest" todir="${junit.output.dir}"/>
+            <classpath refid="Clusterer.classpath"/>
+        </junit>
+    </target>
+    <target name="InputReaderTest">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="tests.InputReaderTest" todir="${junit.output.dir}"/>
+            <classpath refid="Clusterer.classpath"/>
+        </junit>
+    </target>
+    <target name="InputReaderTest.testReadFromfile">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="tests.InputReaderTest" todir="${junit.output.dir}"/>
+            <classpath refid="Clusterer.classpath"/>
+        </junit>
+    </target>
+    <target name="JaccardIndexTest">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="tests.validationIndices.JaccardIndexTest" todir="${junit.output.dir}"/>
+            <classpath refid="Clusterer.classpath"/>
+        </junit>
+    </target>
+    <target name="KMeansRunner">
+        <java classname="runner.KMeansRunner" failonerror="true" fork="yes">
+            <classpath refid="Clusterer.classpath"/>
+        </java>
+    </target>
+    <target name="KMeansTest">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="tests.KMeansTest" todir="${junit.output.dir}"/>
+            <jvmarg line="-ea"/>
+            <classpath refid="Clusterer.classpath"/>
+        </junit>
+    </target>
+    <target name="KMeansTest.testKMeansClustering">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="tests.KMeansTest" todir="${junit.output.dir}"/>
+            <classpath refid="Clusterer.classpath"/>
+        </junit>
+    </target>
+    <target name="leaderAlgorithmTest">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="tests.leaderAlgorithmTest" todir="${junit.output.dir}"/>
+            <classpath refid="Clusterer.classpath"/>
+        </junit>
+    </target>
+    <target name="Main">
+        <java classname="runner.Main" failonerror="true" fork="yes">
+            <classpath refid="Clusterer.classpath"/>
+        </java>
+    </target>
+    <target name="RandIndexTest">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="tests.validationIndices.RandIndexTest" todir="${junit.output.dir}"/>
+            <classpath refid="Clusterer.classpath"/>
+        </junit>
+    </target>
+    <target name="UtilTest.testGetIndexOfMinElement">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="tests.UtilTest" todir="${junit.output.dir}"/>
+            <classpath refid="Clusterer.classpath"/>
+        </junit>
+    </target>
+    <target name="[Scrapbook] scrapbook.jpage">
+        <java classname="org.eclipse.jdt.internal.debug.ui.snippeteditor.ScrapbookMain" failonerror="true" fork="yes">
+            <arg line=" file:/C:/Users/Markus/Documents/Masterarbeit/Workspace/.metadata/.plugins/org.eclipse.core.resources/.projects/Clusterer/org.eclipse.jdt.debug.ui/ file:/C:/Users/Markus/Documents/Masterarbeit/Workspace/Clusterer/bin/ file:/C:/programming/eclipse/plugins/org.junit4_4.3.1/junit.jar"/>
+            <classpath refid="run.[Scrapbook] scrapbook.jpage.classpath"/>
+        </java>
+    </target>
+    <target name="LeaderRunnerEasy">
+        <java classname="runner.LeaderRunner" failonerror="true" fork="yes">
+            <arg line="C:\\Users\\Markus\\Documents\\Masterarbeit\\Workspace\\Clusterer\\src\\easy.valid 4  C:\\Users\\Markus\\Documents\\Masterarbeit\\Workspace\\Clusterer\\src\\result\\easyLeader3.result"/>
+            <classpath refid="Clusterer.classpath"/>
+        </java>
+    </target>
+    <target name="DunnIndexTest">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="tests.validationIndices.DunnIndexTest" todir="${junit.output.dir}"/>
+            <classpath refid="Clusterer.classpath"/>
+        </junit>
+    </target>
+    <target name="junitreport">
+        <junitreport todir="${junit.output.dir}">
+            <fileset dir="${junit.output.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${junit.output.dir}"/>
+        </junitreport>
+    </target>
+</project>

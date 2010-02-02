@@ -1,0 +1,16 @@
+
+*******************Hierarchical************************
+Number of Feature Vectors: 750
+Feature Vector Dimension: 90
+k: null
+Number Of Clusters calculated: 750
+Unclassified FeatureVectors: none
+-----------------------------------------------------
+CIndex: NaN
+DBIndex: 0.0
+DunnIndex: Infinity
+FowlkesMallowsIndex: NaN
+JaccardIndex: 0.0
+RandIndex: 0.93457943
+Silhouette-Index: 1.0
+Bipartite-Index: 1.0
