@@ -4,7 +4,7 @@
 package algorithms;
 
 import input.Dataset;
-import input.FeatureVector;
+import input.Element;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -42,8 +42,8 @@ public class DBSCAN implements ClusteringAlgorithm {
 		int currentClusterId = 0;
 		dataset.reset();
 		for (int i = 0; i < dataset.size(); i++) {
-			FeatureVector featureVector = dataset.get(i);
-			if(featureVector.getCalculatedClusternumber() == FeatureVector.UNCLASSIFIED){
+			Element featureVector = dataset.get(i);
+			if(featureVector.getCalculatedClusternumber() == Element.UNCLASSIFIED){
 				if(this.expandCluster(i,currentClusterId, this.epsilon, this.minPoints,  dataset ));
 				currentClusterId ++;
 			}
@@ -60,7 +60,7 @@ public class DBSCAN implements ClusteringAlgorithm {
 	private boolean expandCluster(int pointnumber, int currentClusterId, float gamma2, int minPoints2, Dataset dataset) {
 		LinkedList<Integer> seeds = (LinkedList<Integer>) this.getNeighbours(dataset,  pointnumber);
 		if (seeds.size() < this.minPoints){ //no core point
-			dataset.get(pointnumber).setCalculatedClusternumber(FeatureVector.NOISE);
+			dataset.get(pointnumber).setCalculatedClusternumber(Element.NOISE);
 			return false;
 		}
 		else{
@@ -74,12 +74,12 @@ public class DBSCAN implements ClusteringAlgorithm {
 			
 				if (result.size() >= this.minPoints){
 					for (Integer resultPId : result) {
-						FeatureVector resultP = dataset.get(resultPId);
-						if (resultP.getCalculatedClusternumber() == FeatureVector.UNCLASSIFIED){
+						Element resultP = dataset.get(resultPId);
+						if (resultP.getCalculatedClusternumber() == Element.UNCLASSIFIED){
 							seeds.addLast(resultPId);
 							resultP.setCalculatedClusternumber(currentClusterId);
 						}
-						if (resultP.getCalculatedClusternumber() == FeatureVector.NOISE){
+						if (resultP.getCalculatedClusternumber() == Element.NOISE){
 							resultP.setCalculatedClusternumber(currentClusterId);
 						}
 					}

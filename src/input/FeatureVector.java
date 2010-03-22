@@ -2,11 +2,10 @@ package input;
 
 import java.util.Arrays;
 
-public class FeatureVector extends Element{
-	public static final int UNCLASSIFIED = -2;
-	public static final int NOISE = -1;
+import distance.DistanceMeasure;
+import distance.EuclideanDistance;
 
-	private int calculatedClusternumber;
+public class FeatureVector extends Element{
 	private float[] features;
 
 	/**
@@ -23,7 +22,7 @@ public class FeatureVector extends Element{
 			startIndexOfFeatures = 2;
 		} else {
 			//the line is not the result of a clustering process (*test,*.valid)
-			this.calculatedClusternumber = FeatureVector.UNCLASSIFIED;
+			this.calculatedClusternumber = Element.UNCLASSIFIED;
 			startIndexOfFeatures = 1;
 		}
 		
@@ -72,23 +71,15 @@ public class FeatureVector extends Element{
 		return this.features;
 	}
 	
-	public int getCalculatedClusternumber() {
-		return calculatedClusternumber;
-	}
-
-	public void setCalculatedClusternumber(int calculatedClusternumber) {
-		this.calculatedClusternumber = calculatedClusternumber;
-	}
-
 	/**
 	 * Determines if the point vect is calculated to be in the same cluster as
 	 * this point.
 	 * @param vect
 	 * @return false if not in same cluster or clusters are not yet calculated
 	 */
-	public boolean isSameCluster(FeatureVector vect) {
-		if (this.calculatedClusternumber == FeatureVector.UNCLASSIFIED
-				&& vect.getCalculatedClusternumber() == FeatureVector.UNCLASSIFIED) {
+	public boolean isSameCluster(Element vect) {
+		if (this.calculatedClusternumber == Element.UNCLASSIFIED
+				&& vect.getCalculatedClusternumber() == Element.UNCLASSIFIED) {
 			//clusternumbers have not been calculated
 			return false;
 		} else if (vect.getCalculatedClusternumber() == this.calculatedClusternumber) {
@@ -120,6 +111,26 @@ public class FeatureVector extends Element{
 		if (!Arrays.equals(features, other.features))
 			return false;
 		return true;
+	}
+
+	/* (non-Javadoc)
+	 * @see input.Element#calculateDistance(input.Element)
+	 */
+	@Override
+	public float calculateDistance(Element other) {
+		if (other instanceof FeatureVector){
+			EuclideanDistance ed = new EuclideanDistance();
+			return (ed.calculate(features, ((FeatureVector) other).getFeatures()));
+			
+		} else{
+			throw new RuntimeException("could not calculate distance between FeatureVector and other element");
+		}
+
+	}
+	
+	public float calculateDistance(FeatureVector other, DistanceMeasure dm){
+		return dm.calculate(this.features, other.getFeatures());
+		
 	}
 	
 

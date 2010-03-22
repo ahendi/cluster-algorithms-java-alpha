@@ -6,7 +6,7 @@ package tests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import input.Dataset;
-import input.FeatureVector;
+import input.Element;
 import input.InputReader;
 
 import org.junit.Before;
@@ -32,15 +32,15 @@ public class DBSCANTest {
 	
 	@Test
 	public void testDBSCANClustering(){
-		for (FeatureVector featureVector : testset) {
-			assertEquals(FeatureVector.UNCLASSIFIED ,featureVector.getCalculatedClusternumber() );
+		for (Element featureVector : testset) {
+			assertEquals(Element.UNCLASSIFIED ,featureVector.getCalculatedClusternumber() );
 		}
 		DBSCAN dbscanClusterer = new DBSCAN();
 		dbscanClusterer.setEpsilon(3f);
 		dbscanClusterer.setMinPoints(2);
 		dbscanClusterer.doClustering(testset);
-		for (FeatureVector featureVector : testset) {
-			 assertFalse(FeatureVector.UNCLASSIFIED == featureVector.getCalculatedClusternumber());
+		for (Element featureVector : testset) {
+			 assertFalse(Element.UNCLASSIFIED == featureVector.getCalculatedClusternumber());
 		}
 		System.out.print(testset.toString());
 	}

@@ -6,7 +6,7 @@ package tests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import input.Dataset;
-import input.FeatureVector;
+import input.Element;
 import input.InputReader;
 
 import org.junit.Before;
@@ -33,15 +33,15 @@ public class KMeansTest {
 	
 	@Test
 	public void testKMeansClustering(){
-		for (FeatureVector featureVector : testset) {
-			assertEquals(FeatureVector.UNCLASSIFIED ,featureVector.getCalculatedClusternumber() );
+		for (Element featureVector : testset) {
+			assertEquals(Element.UNCLASSIFIED ,featureVector.getCalculatedClusternumber() );
 		}
 		KMeans kmenasClusterer = new KMeans();
 		kmenasClusterer.setNumOfClusters(2);
 		kmenasClusterer.setDistanceMeasure(new EuclideanDistance());
 		kmenasClusterer.doClustering(testset);
-		for (FeatureVector featureVector : testset) {
-			 assertFalse(FeatureVector.UNCLASSIFIED == featureVector.getCalculatedClusternumber());
+		for (Element featureVector : testset) {
+			 assertFalse(Element.UNCLASSIFIED == featureVector.getCalculatedClusternumber());
 		}
 		System.out.print(testset.toString());
 	}

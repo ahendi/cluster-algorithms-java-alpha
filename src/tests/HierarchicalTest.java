@@ -3,7 +3,7 @@ package tests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import input.Dataset;
-import input.FeatureVector;
+import input.Element;
 import input.InputReader;
 
 import org.junit.Before;
@@ -32,15 +32,15 @@ public class HierarchicalTest {
 	
 	@Test
 	public void testHierarchicalClustering(){
-		for (FeatureVector featureVector : testset) {
-			assertEquals(FeatureVector.UNCLASSIFIED ,featureVector.getCalculatedClusternumber() );
+		for (Element featureVector : testset) {
+			assertEquals(Element.UNCLASSIFIED ,featureVector.getCalculatedClusternumber() );
 		}
 		HierarchicalClustering htClusterer = new HierarchicalClustering(new SingleLinkage(new EuclideanDistance()));
 		htClusterer.setLimit(745);
 		htClusterer.doClustering(testset);
 		
-		for (FeatureVector featureVector : testset) {
-			 assertFalse(FeatureVector.UNCLASSIFIED == featureVector.getCalculatedClusternumber());
+		for (Element featureVector : testset) {
+			 assertFalse(Element.UNCLASSIFIED == featureVector.getCalculatedClusternumber());
 		}
 		System.out.print(testset.toString());
 	}

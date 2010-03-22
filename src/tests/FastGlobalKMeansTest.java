@@ -4,7 +4,7 @@ package tests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import input.Dataset;
-import input.FeatureVector;
+import input.Element;
 import input.InputReader;
 
 import org.junit.Before;
@@ -31,14 +31,14 @@ public class FastGlobalKMeansTest {
 	
 	@Test
 	public void testFastGlobalKMeans(){
-		for (FeatureVector featureVector : testset) {
-			assertEquals(FeatureVector.UNCLASSIFIED ,featureVector.getCalculatedClusternumber() );
+		for (Element featureVector : testset) {
+			assertEquals(Element.UNCLASSIFIED ,featureVector.getCalculatedClusternumber() );
 		}
 		FastGlobalKMeans fgkm = new FastGlobalKMeans( new EuclideanDistance());
 		fgkm.doClustering(testset);
 
-		for (FeatureVector featureVector : testset) {
-			 assertFalse(FeatureVector.UNCLASSIFIED == featureVector.getCalculatedClusternumber());
+		for (Element featureVector : testset) {
+			 assertFalse(Element.UNCLASSIFIED == featureVector.getCalculatedClusternumber());
 		}
 		System.out.print(testset.toString());
 	}
