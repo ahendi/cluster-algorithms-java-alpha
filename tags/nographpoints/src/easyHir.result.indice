@@ -1,0 +1,16 @@
+
+*******************Hierarchical************************
+Number of Feature Vectors: 11
+Feature Vector Dimension: 2
+k: null
+Number Of Clusters calculated: 2
+Unclassified FeatureVectors: none
+-----------------------------------------------------
+CIndex: 0.015706617
+DBIndex: 0.27488828
+DunnIndex: 0.8095711
+FowlkesMallowsIndex: 0.82462114
+JaccardIndex: 0.68
+RandIndex: 0.8545455
+Silhouette-Index: 0.615943
+Bipartite-Index: 0.8181818

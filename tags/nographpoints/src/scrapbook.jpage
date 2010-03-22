@@ -1,0 +1,6 @@
+int[] vector = {1,2,3,4};
+for (int i = 0; i<vector.length; i++){
+	for (int j=i+1; j<vector.length; j++ ){				for (int r = i; r<vector.length; r++){			for (int s=r+1; s<vector.length; s++ ){				System.out.print("["+vector[i]+","+vector[j]+"]");
+				System.out.println("["+vector[r]+","+vector[s]+"]");			}		}
+	}
+})
