@@ -13,7 +13,7 @@ import org.junit.Test;
 import distance.EuclideanDistance;
 
 import validationIndices.CalinskiHarabasz;
-import algorithms.KMeans;
+import algorithms.KMedoids;
 import algorithms.Leader;
 
 /**
@@ -31,7 +31,7 @@ public class CHIndexTest {
 //		Leader leaderClusterer = new Leader();
 //		leaderClusterer.setEpsilon(2);
 //		leaderClusterer.doClustering(trivialTestset);
-		KMeans kmeans = new KMeans(new EuclideanDistance());
+		KMedoids kmeans = new KMedoids(new EuclideanDistance());
 		kmeans.setNumOfClusters(10);
 		kmeans.doClustering(this.trivialTestset);
 	}

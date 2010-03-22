@@ -24,16 +24,18 @@ public class InputReader {
 	
 	public static Dataset  readFromfile(String path, boolean isResult){
 		Dataset dataset = new Dataset();
-		FeatureVector featureVector;
+		GraphElement featureVector;
 		BufferedReader br = null;
+		int idOfElement = 0;
 		try {
 			br = new BufferedReader(new FileReader(path));
 			String line = br.readLine();
 			while (line != null){
 				String[] splitLine = line.split(" ");
-				featureVector = new FeatureVector(splitLine,isResult);
+				featureVector = new GraphElement(idOfElement,splitLine,isResult);
 				dataset.add(featureVector);
 				line = br.readLine();
+				idOfElement++;
 			}
 			
 		} catch (FileNotFoundException e) {
@@ -75,17 +77,13 @@ public class InputReader {
 		        }
 
 			FileWriter  bw =  new FileWriter(file);
-			for (FeatureVector featureVector : dataset) {
+			for (GraphElement graphElements : dataset) {
 				StringBuilder line = new StringBuilder();
-				line.append(featureVector.getLabel());
+				line.append(graphElements.getLabel());
 				line.append(" ");
-				line.append(featureVector.getCalculatedClusternumber());
+				line.append(graphElements.getCalculatedClusternumber());
 				line.append(" ");
-				float[] features = featureVector.getFeatures();
-				for (int i = 0; i < features.length; i++) {
-					line.append(i+1+":"+features[i]+" ");
-					
-				}
+				
 				line.append("\n");
 				bw.write(line.toString());
 			}
@@ -106,8 +104,7 @@ public class InputReader {
 			DocumentBuilder documentBuilder = documentBuilderFactory
 					.newDocumentBuilder();
 			Document doc = documentBuilder
-					.parse(new File(
-							"C:\\Users\\Markus\\Documents\\Masterarbeit\\Workspace\\Clusterer\\src\\tete.dxl"));
+					.parse(new File(pathToXMLFileWithDistances));
 
 			NodeList content = doc.getElementsByTagName("content");
 			Node element = content.item(0);

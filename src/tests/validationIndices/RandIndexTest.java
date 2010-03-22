@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import validationIndices.RandIndex;
-import algorithms.KMeans;
+import algorithms.KMedoids;
 import distance.EuclideanDistance;
 
 /**
@@ -26,7 +26,7 @@ public class RandIndexTest {
 		InputReader inputReader = new InputReader();
 	
 		this.trivialTestset =inputReader.readFromfile("C:\\Users\\Markus\\Documents\\Masterarbeit\\Workspace\\Clusterer\\src\\90.valid");
-		KMeans kmeans = new KMeans(new EuclideanDistance(),100) ;
+		KMedoids kmeans = new KMedoids(new EuclideanDistance(),100) ;
 		kmeans.doClustering(trivialTestset);
 
 	}

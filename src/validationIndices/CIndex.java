@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 import distance.EuclideanDistance;
 import input.Dataset;
-import input.FeatureVector;
+import input.GraphElement;
 
 /**
  * @author Markus Hofstetter
@@ -20,8 +20,8 @@ public class CIndex {
 		int numOfSameClustParis = 0; //number of pairs of elements in same cluster (a)
 		float gamma = 0;  //sum of distance of elements in same cluster
 		int datasetSize = clusteredData.size();
-		FeatureVector vectI;
-		FeatureVector vectJ;
+		GraphElement vectI;
+		GraphElement vectJ;
 		float dist;
 		//create an array in the size of the number of pairs of elements
 		float distances [] = new float[((datasetSize-1)*datasetSize)/2];
@@ -31,7 +31,7 @@ public class CIndex {
 			for (int j = i+1; j < datasetSize; j++) {
 				vectI = clusteredData.get(i);
 				vectJ = clusteredData.get(j);
-				dist = edist.calculate(vectI.getFeatures(), vectJ.getFeatures());
+				dist = vectI.calculateDistance(vectJ);
 				distances[pairnumber] = dist;
 				if (vectI.isSameCluster(vectJ)){
 					numOfSameClustParis ++; 

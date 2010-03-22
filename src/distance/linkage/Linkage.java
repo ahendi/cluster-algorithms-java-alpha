@@ -3,7 +3,7 @@
  */
 package distance.linkage;
 
-import input.FeatureVector;
+import input.GraphElement;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ public interface Linkage {
 	 * @param cluster2
 	 * @return
 	 */
-	public float calculateClusterdistance (List<FeatureVector> cluster1, List<FeatureVector> cluster2);
+	public float calculateClusterdistance (List<GraphElement> cluster1, List<GraphElement> cluster2);
 	
 	/**
 	 * Calculate distance between two clusters represented as cluster objects

@@ -11,8 +11,7 @@ import java.util.Map;
 
 import output.ValidationWriter;
 import algorithms.Algorithms;
-import algorithms.KMeans;
-import distance.EuclideanDistance;
+import algorithms.KMedoids;
 
 /**
  * Starts a run of the kmeans algorithm with specifeid parameters and
@@ -23,26 +22,29 @@ import distance.EuclideanDistance;
 public class KMeansRunner {
 	
 	public static void main(String[] args) {
-		String inputFileName,outputFileName;
+		String inputFileName,outputFileName,distanceMatrixFileName;
 		int numOfClusters;
-		if (args.length ==3){
+		if (args.length ==4){
 			//read input file path
 			inputFileName = args[0];
 			outputFileName = args[1];
 			numOfClusters = Integer.valueOf(args[2]);
+			distanceMatrixFileName = args[3];
 		}
 		else{
 			throw new IllegalArgumentException();
 		}
 		Dataset dataset = InputReader.readFromfile(inputFileName);
+		float[][] distanceMatrix = InputReader.importDistances(distanceMatrixFileName);
+		Dataset.setDistanceMatrix(distanceMatrix);
 
-		KMeans kmeans = new KMeans(new EuclideanDistance(),numOfClusters);
+		KMedoids kmeans = new KMedoids(numOfClusters);
 		kmeans.doClustering(dataset);
 		InputReader.writeDatasetToFile(outputFileName , dataset);
 		Map<String,String> params = new HashMap<String,String>();
 		params.put(ValidationWriter.KMEANS_K_LABEL,String.valueOf(numOfClusters));
 		ValidationWriter.printValidationIndices("KMEANS", params, dataset);
-		ValidationWriter.writeToCSV("kmeansResults.csv", Algorithms.KMeans, dataset, params);
+		ValidationWriter.writeToCSV("kmeansResults.csv", Algorithms.KMedoids, dataset, params);
 		ValidationWriter.writeValidationIndice(outputFileName, "KMeans", params, dataset);
 
 	}

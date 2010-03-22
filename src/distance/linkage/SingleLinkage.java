@@ -3,13 +3,11 @@
  */
 package distance.linkage;
 
-import input.FeatureVector;
+import input.GraphElement;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import distance.DistanceMeasure;
 
 /**
  * @author Markus
@@ -22,16 +20,16 @@ public class SingleLinkage extends AbstractLinkage {
 	/**
 	 * @param distanceMeasure
 	 */
-	public SingleLinkage(DistanceMeasure distanceMeasure) {
-		super(distanceMeasure);
+	public SingleLinkage() {
+
 
 	}
 	/**
 	 * compares every point in the cluster with all the points in the other cluster.
 	 * The two points with the lowest distance define the clusterdistance
 	 */
-	public float calculateClusterdistance (List<FeatureVector> cluster1, List<FeatureVector> cluster2){
-		FeatureVector point1 , point2;
+	public float calculateClusterdistance (List<GraphElement> cluster1, List<GraphElement> cluster2){
+		GraphElement point1 , point2;
 
 		ArrayList<Float> distances = new ArrayList<Float>();
 		for (int i = 0; i < cluster1.size(); i++) {
@@ -39,7 +37,7 @@ public class SingleLinkage extends AbstractLinkage {
 			for (int j = 0; j < cluster2.size(); j++){
 				point2 = cluster2.get(j);
 				
-				float tempDist= distanceMeasure.calculate(point1.getFeatures(), point2.getFeatures());
+				float tempDist = point1.calculateDistance(point2);
 				distances.add(tempDist);
 				
 			}

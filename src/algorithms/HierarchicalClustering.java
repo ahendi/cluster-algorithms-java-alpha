@@ -5,7 +5,7 @@ package algorithms;
 
 import input.Dataset;
 import input.Element;
-import input.FeatureVector;
+import input.GraphElement;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -119,7 +119,7 @@ public class HierarchicalClustering implements ClusteringAlgorithm {
 	 */
 	private void mergeClusters (Cluster cluster1, Cluster cluster2){
 		cluster2.setClusterid(cluster1.getClusterid());
-		List<FeatureVector> elements = cluster2.getClusterelements();
+		List<GraphElement> elements = cluster2.getClusterelements();
 		for (Element featureVector : elements) {
 			featureVector.setCalculatedClusternumber(cluster1.getClusterid());
 		}

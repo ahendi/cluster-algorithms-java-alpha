@@ -40,7 +40,7 @@ public class HierarchicalClusteringRunner {
 		Dataset dataset = InputReader.readFromfile(inputFileName);
 		boolean printSteps = true;
 		HierarchicalClustering hc = new HierarchicalClustering(
-				new SingleLinkage(new EuclideanDistance()),printSteps);
+				new SingleLinkage(),printSteps);
 		hc.setLimit(numOfClusters);
 		hc.doClustering(dataset);
 		InputReader.writeDatasetToFile(outputFileName, dataset);

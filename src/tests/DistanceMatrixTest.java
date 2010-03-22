@@ -27,7 +27,7 @@ import com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl;
 public class DistanceMatrixTest {
 	
 	@Test
-	public float[][] testImportMatrix(){
+	public void testImportMatrix(){
 		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactoryImpl.newInstance();
 		try {
 			DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -53,7 +53,7 @@ public class DistanceMatrixTest {
 			
 
 			assertEquals (distances.length , numberOfCols*numberOfRows);
-			return distanceMatrix;
+			
 			
 			
 		} catch (ParserConfigurationException e) {
@@ -66,7 +66,7 @@ public class DistanceMatrixTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+
 	}
 
 }

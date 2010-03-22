@@ -3,7 +3,7 @@
  */
 package tests;
 
-import input.FeatureVector;
+import input.GraphElement;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,11 +23,11 @@ public class ClusterTest {
 	@Before
 	public void setUp(){
 		
-		FeatureVector f1 = new FeatureVector( new float[]{1.0f,2.0f, 3.0f},0);
-		FeatureVector f2 = new FeatureVector( new float[]{3.0f,2.0f, 1.0f},0);
-		FeatureVector f3 = new FeatureVector( new float[]{3.5f,2.2f, 1.1f},0);
-		FeatureVector f4 = new FeatureVector( new float[]{4.0f,6.0f, 4.0f},0);
-		FeatureVector f5 = new FeatureVector( new float[]{3.0f,3.3f, 3.0f},0);
+		GraphElement f1 = new GraphElement(1, 0);
+		GraphElement f2 = new GraphElement(2,0);
+		GraphElement f3 = new GraphElement( 3,0);
+		GraphElement f4 = new GraphElement( 4,0);
+		GraphElement f5 = new GraphElement( 5,0);
 		cl1 = new Cluster(0);
 		cl2 = new Cluster(0);
 		cl3 = new Cluster(0);

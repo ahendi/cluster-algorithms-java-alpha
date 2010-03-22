@@ -4,7 +4,6 @@
 package distance.linkage;
 
 import output.Cluster;
-import distance.DistanceMeasure;
 
 /**
  * @author Markus
@@ -12,10 +11,10 @@ import distance.DistanceMeasure;
  */
 public abstract class AbstractLinkage implements Linkage  {
 	
-	protected DistanceMeasure distanceMeasure;
+
 	
-	public AbstractLinkage(DistanceMeasure distanceMeasure){
-		this.distanceMeasure = distanceMeasure;
+	public AbstractLinkage(){
+		
 		
 	}
 	
