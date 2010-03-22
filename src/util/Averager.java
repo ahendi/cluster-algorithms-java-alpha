@@ -4,7 +4,7 @@
 package util;
 
 import input.Dataset;
-import input.FeatureVector;
+import input.Element;
 
 import java.util.HashMap;
 import java.util.List;
@@ -87,7 +87,7 @@ public class Averager {
 			Map<Integer, Cluster> clustermap =dataset.getClustermap();
 			numberOfFeatureVectors += dataset.size();
 			dimensionOfVectors += dataset.get(0).getDimension();
-			numberOfUnclassified += (clustermap.get(FeatureVector.UNCLASSIFIED) == null) ? 0 :clustermap.get(FeatureVector.UNCLASSIFIED).size();
+			numberOfUnclassified += (clustermap.get(Element.UNCLASSIFIED) == null) ? 0 :clustermap.get(Element.UNCLASSIFIED).size();
 			numberOfClust += clustermap.size();
 		}
 		// calculate average

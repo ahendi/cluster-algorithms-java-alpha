@@ -4,7 +4,7 @@
 package output;
 
 import input.Dataset;
-import input.FeatureVector;
+import input.Element;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -70,7 +70,7 @@ public class ValidationWriter {
 		path = path.concat(".indice");
 		File file = new File(path);
 		Map<Integer, Cluster> clustermap = dataset.getClustermap();
-		String unclassified = (clustermap.get(FeatureVector.UNCLASSIFIED) == null) ? "none" : String.valueOf(clustermap.get(FeatureVector.UNCLASSIFIED).size());
+		String unclassified = (clustermap.get(Element.UNCLASSIFIED) == null) ? "none" : String.valueOf(clustermap.get(Element.UNCLASSIFIED).size());
 
 		// Create file if it does not exist
 		try {
@@ -170,7 +170,7 @@ public class ValidationWriter {
 		Map<Integer, Cluster> clustermap = result.getClustermap();
 		String numberOfFeatureVectors = String.valueOf(result.size());
 		String dimensionOfVectors = String.valueOf(result.get(0).getDimension());
-		String unclassified = (clustermap.get(FeatureVector.UNCLASSIFIED) == null) ? "0" : String.valueOf(clustermap.get(FeatureVector.UNCLASSIFIED).size());
+		String unclassified = (clustermap.get(Element.UNCLASSIFIED) == null) ? "0" : String.valueOf(clustermap.get(Element.UNCLASSIFIED).size());
 		String numberOfClust =String.valueOf(result.getClustermap().size());
 		String basicInfos = numberOfFeatureVectors+"#"+dimensionOfVectors+"#"+numberOfClust+"#"+unclassified+"#";
 		
@@ -236,7 +236,7 @@ public class ValidationWriter {
 	public static void printValidationIndices(String title, Map<String,String> params,Dataset dataset){
 		int dim = dataset.get(0).getDimension();
 		Map<Integer, Cluster> clustermap = dataset.getClustermap();
-		String unclassified = (clustermap.get(FeatureVector.UNCLASSIFIED) == null) ? "none" : String.valueOf(clustermap.get(FeatureVector.UNCLASSIFIED).size());
+		String unclassified = (clustermap.get(Element.UNCLASSIFIED) == null) ? "none" : String.valueOf(clustermap.get(Element.UNCLASSIFIED).size());
 		System.out.println();
 		System.out.println("*******************"+title+"************************");
 		System.out.println("Feature Vector Dimension: "+ dim);

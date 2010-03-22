@@ -97,42 +97,50 @@ public class InputReader {
 		}
 		
 	}
-	public static void importDistances (String pathToXMLFileWithDistances){
-	
-	DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactoryImpl.newInstance();
-	try {
-		DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-		Document doc = documentBuilder.parse(new File ("C:\\Users\\Markus\\Documents\\Masterarbeit\\Workspace\\Clusterer\\src\\tete.dxl"));
+	public static float[][] importDistances(String pathToXMLFileWithDistances) {
 
-		NodeList content = doc.getElementsByTagName("content");
-		Node element = content.item(0);
-		NamedNodeMap attributes = element.getAttributes();
-		Node cols = attributes.getNamedItem("cols");
-		Node rows = attributes.getNamedItem("rows");
-		int numberOfCols = Integer.parseInt(cols.getNodeValue());
-		int numberOfRows = Integer.parseInt(rows.getNodeValue());
-		float[][] distanceMatrix = new float [numberOfRows][numberOfCols];
-		String values = element.getTextContent();
-		String[] distances = values.split(";");
-		for (int i = 0; i < numberOfRows ; i++) {
-			for (int j = 0; j < numberOfCols; j++) {
-				float currentValue = Float.parseFloat(distances[i*numberOfCols+j]);
-				distanceMatrix[i][j] = currentValue;
+		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactoryImpl
+				.newInstance();
+		float[][] distanceMatrix =null;
+		try {
+			DocumentBuilder documentBuilder = documentBuilderFactory
+					.newDocumentBuilder();
+			Document doc = documentBuilder
+					.parse(new File(
+							"C:\\Users\\Markus\\Documents\\Masterarbeit\\Workspace\\Clusterer\\src\\tete.dxl"));
+
+			NodeList content = doc.getElementsByTagName("content");
+			Node element = content.item(0);
+			NamedNodeMap attributes = element.getAttributes();
+			Node cols = attributes.getNamedItem("cols");
+			Node rows = attributes.getNamedItem("rows");
+			int numberOfCols = Integer.parseInt(cols.getNodeValue());
+			int numberOfRows = Integer.parseInt(rows.getNodeValue());
+			distanceMatrix = new float[numberOfRows][numberOfCols];
+			String values = element.getTextContent();
+			String[] distances = values.split(";");
+			for (int i = 0; i < numberOfRows; i++) {
+				for (int j = 0; j < numberOfCols; j++) {
+					float currentValue = Float.parseFloat(distances[i
+							* numberOfCols + j]);
+					distanceMatrix[i][j] = currentValue;
+				}
+
 			}
-			
+
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			//cant really do much on this one
+			e.printStackTrace();
 		}
-	
-	} catch (ParserConfigurationException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} catch (SAXException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	}
+		return distanceMatrix;
+	} 
 	
 
 }

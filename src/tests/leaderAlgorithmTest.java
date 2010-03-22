@@ -4,7 +4,7 @@
 package tests;
 
 import input.Dataset;
-import input.FeatureVector;
+import input.Element;
 import input.InputReader;
 
 import org.junit.Before;
@@ -32,13 +32,13 @@ public class leaderAlgorithmTest {
 	
 	@Test
 	public void testleaderClustering(){
-		for (FeatureVector featureVector : testset) {
+		for (Element featureVector : testset) {
 			assertEquals(-1 ,featureVector.getCalculatedClusternumber() );
 		}
 		Leader leaderClusterer = new Leader();
 		leaderClusterer.setEpsilon(14.6f);
 		leaderClusterer.doClustering(testset);
-		for (FeatureVector featureVector : testset) {
+		for (Element featureVector : testset) {
 			 assertFalse(-1 == featureVector.getCalculatedClusternumber());
 		}
 		System.out.print(testset.toString());

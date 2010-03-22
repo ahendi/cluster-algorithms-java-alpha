@@ -68,7 +68,7 @@ public class Dataset implements Iterable<FeatureVector>{
 		for (FeatureVector featureVector : this.vectors) {
 			Integer currentClusternumber =featureVector.getCalculatedClusternumber();
 			Cluster temp  = clusters.get(currentClusternumber);
-			assert (currentClusternumber != FeatureVector.UNCLASSIFIED);
+			assert (currentClusternumber != Element.UNCLASSIFIED);
 			if (temp != null){
 				temp.add(featureVector);
 			} else {
@@ -229,8 +229,8 @@ public class Dataset implements Iterable<FeatureVector>{
 	}
 	
 	public void reset(){
-		for (FeatureVector fv : vectors) {
-			fv.setCalculatedClusternumber(FeatureVector.UNCLASSIFIED);
+		for (Element fv : vectors) {
+			fv.setCalculatedClusternumber(Element.UNCLASSIFIED);
 			
 		}
 		this.clusterMap = null;

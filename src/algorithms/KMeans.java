@@ -15,6 +15,7 @@ import util.CalculationUtil;
 import distance.DistanceMeasure;
 
 import input.Dataset;
+import input.Element;
 import input.FeatureVector;
 
 /**
@@ -102,7 +103,7 @@ public class KMeans implements ClusteringAlgorithm {
 		for (int i = 0; i < this.numOfClusters; i++) {
 			int randElement = (int) Math.floor(Math.random()
 					* candidatPoints.size());
-			FeatureVector center = candidatPoints.get(randElement);
+			Element center = candidatPoints.get(randElement);
 			center.setCalculatedClusternumber(i);
 			centers[i] = candidatPoints.get(randElement);
 			candidatPoints.remove(randElement);

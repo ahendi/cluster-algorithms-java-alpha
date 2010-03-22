@@ -1,6 +1,7 @@
 package algorithms;
 
 import input.Dataset;
+import input.Element;
 import input.FeatureVector;
 
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class Leader implements ClusteringAlgorithm {
 		//for every vector in the dataset do
 		for (int i = 1 ; i<dataset.size();i++){
 			FeatureVector currentVector = dataset.get(i);
-			assert(currentVector.getCalculatedClusternumber() == FeatureVector.UNCLASSIFIED);
+			assert(currentVector.getCalculatedClusternumber() == Element.UNCLASSIFIED);
 			//calculate distances to centers
 			Float[] distances = this.calculateDistance(currentVector, centers);
 			//get number of cluster with smallest distance to current element

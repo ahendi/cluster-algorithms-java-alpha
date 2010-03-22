@@ -4,7 +4,7 @@
 package validationIndices;
 
 import input.Dataset;
-import input.FeatureVector;
+import input.Element;
 
 /**
  * @author Markus
@@ -37,8 +37,8 @@ public class AbstractCountingPairsIndex {
 	protected void countPairs(Dataset clusteredData) {
 
 		int datasetSize = clusteredData.size();
-		FeatureVector point1;
-		FeatureVector point2;
+		Element point1;
+		Element point2;
 		for (int i = 0; i < datasetSize - 1; i++) {
 			for (int j = i + 1; j < datasetSize; j++) {
 				point1 = clusteredData.get(i);
