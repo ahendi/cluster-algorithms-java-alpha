@@ -18,10 +18,16 @@ public abstract class Element {
 	 * This is an id given to the Element. It is supposed to be unique and 
 	 * should identify the vector position in a distance matrix 
 	 */
-	private long id;
+	protected int id;
 	protected int calculatedClusternumber;
 
 
+	/**
+	 * 
+	 */
+	public Element(int id) {
+		this.id =id;
+	}
 
 	/**
 	 * The label that this vector has.
@@ -43,19 +49,24 @@ public abstract class Element {
 		this.calculatedClusternumber = calculatedClusternumber;
 	}
 	
+	/**
+	 * Calculates the distance to the other element using a standard distance measure
+	 * @param other
+	 * @return
+	 */
 	public abstract float calculateDistance (Element other);
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
 	/**
 	 * @return the id
 	 */
-	public long getId() {
+	public int getId() {
 		return id;
 	} 
 

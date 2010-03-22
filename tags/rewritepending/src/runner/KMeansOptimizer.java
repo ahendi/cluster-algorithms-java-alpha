@@ -12,7 +12,7 @@ import java.util.List;
 
 import validationIndices.CIndex;
 import validationIndices.GoodmanKruskal;
-import algorithms.KMeans;
+import algorithms.KMedoids;
 import algorithms.Leader;
 import distance.EuclideanDistance;
 
@@ -29,7 +29,7 @@ public class KMeansOptimizer {
 		InputReader inputReader = new InputReader();
 		//this.testset =inputReader.readFromfile("C:\\Users\\Markus\\Documents\\Masterarbeit\\Workspace\\Clusterer\\src\\90.valid");
 		Dataset dataSet =inputReader.readFromfile("C:\\Users\\Markus\\Documents\\Masterarbeit\\Workspace\\Clusterer\\src\\90.valid");
-		KMeans kmeansClusterer = new KMeans();
+		KMedoids kmeansClusterer = new KMedoids();
 		kmeansClusterer.setDistanceMeasure(new EuclideanDistance());
 		
 

@@ -10,7 +10,7 @@ import input.InputReader;
 import org.junit.Before;
 import org.junit.Test;
 
-import algorithms.FastGlobalKMeans;
+import algorithms.FastGlobalKMedoids;
 import distance.EuclideanDistance;
 
 /**
@@ -34,7 +34,7 @@ public class FastGlobalKMeansTest {
 		for (Element featureVector : testset) {
 			assertEquals(Element.UNCLASSIFIED ,featureVector.getCalculatedClusternumber() );
 		}
-		FastGlobalKMeans fgkm = new FastGlobalKMeans( new EuclideanDistance());
+		FastGlobalKMedoids fgkm = new FastGlobalKMedoids();
 		fgkm.doClustering(testset);
 
 		for (Element featureVector : testset) {

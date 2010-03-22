@@ -13,7 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import algorithms.GlobalKMeans;
-import algorithms.KMeans;
+import algorithms.KMedoids;
 import distance.EuclideanDistance;
 
 /**
@@ -28,6 +28,7 @@ public class GlobalKMeansTest {
 			InputReader inputReader = new InputReader();
 			this.testset =inputReader.readFromfile("C:\\Users\\Markus\\Documents\\Masterarbeit\\Workspace\\Clusterer\\src\\trivial.valid");
 			this.testset.reset();
+			//TODO import matrix
 	}
 	
 	
@@ -37,7 +38,7 @@ public class GlobalKMeansTest {
 		for (Element featureVector : testset) {
 			assertEquals(Element.UNCLASSIFIED ,featureVector.getCalculatedClusternumber() );
 		}
-		GlobalKMeans gkm = new GlobalKMeans( new EuclideanDistance());
+		GlobalKMeans gkm = new GlobalKMeans();
 		gkm.doClustering(testset);
 
 		for (Element featureVector : testset) {

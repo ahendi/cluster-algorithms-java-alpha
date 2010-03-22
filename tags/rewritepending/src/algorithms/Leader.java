@@ -2,7 +2,7 @@ package algorithms;
 
 import input.Dataset;
 import input.Element;
-import input.FeatureVector;
+import input.GraphElement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,7 @@ import distance.EuclideanDistance;
 
 public class Leader implements ClusteringAlgorithm {
 	private float epsilon;
-	private List<FeatureVector> centers;
+	private List<GraphElement> centers;
 	private DistanceMeasure distMeasure = new EuclideanDistance();
 	
 	/**
@@ -34,13 +34,13 @@ public class Leader implements ClusteringAlgorithm {
 	
 	public void doClustering(Dataset dataset){
 		
-		this.centers = new ArrayList <FeatureVector>();
+		this.centers = new ArrayList <GraphElement>();
 		dataset.reset();
 		dataset.get(0).setCalculatedClusternumber(0);
 		centers.add(dataset.get(0));
 		//for every vector in the dataset do
 		for (int i = 1 ; i<dataset.size();i++){
-			FeatureVector currentVector = dataset.get(i);
+			GraphElement currentVector = dataset.get(i);
 			assert(currentVector.getCalculatedClusternumber() == Element.UNCLASSIFIED);
 			//calculate distances to centers
 			Float[] distances = this.calculateDistance(currentVector, centers);
@@ -69,12 +69,12 @@ public class Leader implements ClusteringAlgorithm {
 		this.epsilon = epsilon;
 	}
 
-	private Float[] calculateDistance(FeatureVector currentFeature, List <FeatureVector> centers){
-		float[] currentVector = currentFeature.getFeatures();
+	private Float[] calculateDistance(GraphElement currentElement, List <GraphElement> centers){
+		
 		Float[] distances = new Float[centers.size()];
 		for (int k = 0; k < centers.size(); k++) {
-			float[] centerVector = centers.get(k).getFeatures();
-			distances[k] = this.distMeasure.calculate(centerVector, currentVector);
+			GraphElement centerVector = centers.get(k);
+			distances[k] = currentElement.calculateDistance(centerVector);
 			
 		}
 		return distances;

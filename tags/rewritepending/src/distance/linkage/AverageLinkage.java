@@ -3,7 +3,7 @@
  */
 package distance.linkage;
 
-import input.FeatureVector;
+import input.GraphElement;
 
 import java.util.List;
 
@@ -18,16 +18,15 @@ public class AverageLinkage extends AbstractLinkage {
 	/**
 	 * @param distanceMeasure
 	 */
-	public AverageLinkage(DistanceMeasure distanceMeasure) {
-		super(distanceMeasure);
+	public AverageLinkage() {
+
 
 	}
 
-	private DistanceMeasure distanceMeasure;
 
-	public float calculateClusterdistance(List<FeatureVector> cluster1,
-			List<FeatureVector> cluster2) {
-		FeatureVector point1, point2;
+	public float calculateClusterdistance(List<GraphElement> cluster1,
+			List<GraphElement> cluster2) {
+		GraphElement point1, point2;
 
 		float distance = 0;
 		float count = 0;
@@ -37,8 +36,7 @@ public class AverageLinkage extends AbstractLinkage {
 			for (int j = 0; j < cluster2.size(); j++) {
 				point2 = cluster2.get(j);
 
-				float tempDist = distanceMeasure.calculate(point1.getFeatures(),
-						point2.getFeatures());
+				float tempDist = point1.calculateDistance(point2);
 				distance += tempDist;
 				count++;
 

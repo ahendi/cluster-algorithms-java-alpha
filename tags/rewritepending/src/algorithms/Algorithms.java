@@ -9,12 +9,12 @@ package algorithms;
  */
 public enum Algorithms {
 	
-	KMeans,
+	KMedoids,
 	Leader,
 	DBSCAN,
 	GlobalKMeans,
 	Hierarchical,
-	FastGlobalKMeans,
+	FastGlobalKMedoids,
 	
 
 }

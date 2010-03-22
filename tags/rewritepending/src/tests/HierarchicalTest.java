@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import algorithms.HierarchicalClustering;
-import algorithms.KMeans;
+import algorithms.KMedoids;
 import distance.EuclideanDistance;
 import distance.linkage.SingleLinkage;
 

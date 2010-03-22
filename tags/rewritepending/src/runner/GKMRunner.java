@@ -11,7 +11,7 @@ import java.util.Map;
 
 import output.ValidationWriter;
 import algorithms.GlobalKMeans;
-import algorithms.KMeans;
+import algorithms.KMedoids;
 import distance.EuclideanDistance;
 
 /**
@@ -36,7 +36,7 @@ public class GKMRunner {
 		}
 		Dataset dataset = InputReader.readFromfile(inputFileName);
 
-		GlobalKMeans kmeans = new GlobalKMeans(new EuclideanDistance(),numOfClusters);
+		GlobalKMeans kmeans = new GlobalKMeans(numOfClusters);
 		kmeans.doClustering(dataset);
 		InputReader.writeDatasetToFile(outputFileName , dataset);
 		Map<String,String> params = new HashMap<String,String>();

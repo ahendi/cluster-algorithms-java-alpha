@@ -9,21 +9,23 @@ import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import javax.management.RuntimeErrorException;
+
 import output.Cluster;
 
 import distance.DistanceMeasure;
 import distance.EuclideanDistance;
 
-public class Dataset implements Iterable<FeatureVector>{
+public class Dataset implements Iterable<GraphElement>{
 	
-	private List<FeatureVector> vectors = new ArrayList<FeatureVector>();
+	private List<GraphElement> vectors = new ArrayList<GraphElement>();
 	private DistanceMeasure distanceMeasure = new EuclideanDistance();
 	private Map <Integer,Cluster> clusterMap;
 	private Map <Integer,Cluster> labelMap;
 	private SortedMap<Float, List<Integer>>[] neighbourMatrix;
-	private float[][] distanceMatrix = null;
+	private static float[][] distanceMatrix = null;
 	
-	public void add(FeatureVector fv){
+	public void add(GraphElement fv){
 		this.vectors.add(fv);
 		}
 	
@@ -31,7 +33,7 @@ public class Dataset implements Iterable<FeatureVector>{
 		return this.vectors.size();
 		}
 
-	public FeatureVector get(int i){
+	public GraphElement get(int i){
 		return this.vectors.get(i);
 	}
 
@@ -40,7 +42,7 @@ public class Dataset implements Iterable<FeatureVector>{
 	 * @see java.lang.Iterable#iterator()
 	 */
 	@Override
-	public Iterator<FeatureVector> iterator() {
+	public Iterator<GraphElement> iterator() {
 		// TODO Auto-generated method stub
 		return this.vectors.iterator();
 	}
@@ -65,7 +67,7 @@ public class Dataset implements Iterable<FeatureVector>{
 	
 	private void createClusterMap(){
 		HashMap<Integer, Cluster> clusters = new HashMap<Integer, Cluster>();
-		for (FeatureVector featureVector : this.vectors) {
+		for (GraphElement featureVector : this.vectors) {
 			Integer currentClusternumber =featureVector.getCalculatedClusternumber();
 			Cluster temp  = clusters.get(currentClusternumber);
 			assert (currentClusternumber != Element.UNCLASSIFIED);
@@ -87,7 +89,7 @@ public class Dataset implements Iterable<FeatureVector>{
 	public Map<Integer, Cluster> getLabelMap() {
 		if (this.labelMap == null) {
 			HashMap<Integer, Cluster> actualClusters = new HashMap<Integer, Cluster>();
-			for (FeatureVector current : this.vectors) {
+			for (GraphElement current : this.vectors) {
 				Integer currentLabelNumber = current.getLabel();
 				Cluster temp = actualClusters.get(currentLabelNumber);
 				if (temp != null) {
@@ -116,7 +118,7 @@ public class Dataset implements Iterable<FeatureVector>{
 	 */
 	public void randomizeOrder(){
 		int originalSize = this.vectors.size();
-		List<FeatureVector> randomizedList = new ArrayList<FeatureVector>(originalSize);
+		List<GraphElement> randomizedList = new ArrayList<GraphElement>(originalSize);
 		for(int i = 0; i < originalSize; i++){
 			int rand = (int) Math.floor( Math.random() * this.vectors.size());
 			randomizedList.add(this.vectors.remove(rand));
@@ -144,9 +146,6 @@ public class Dataset implements Iterable<FeatureVector>{
 	 */
 	private void createSortedDistanceList() {
 		float dist;
-		if (this.distanceMatrix == null) {
-			this.createDistanceMatrix();
-		}
 		SortedMap<Float, List<Integer>>[] sortedMap = new SortedMap[this.size()];
 		for (int i = 0; i < this.size(); i++) {
 			sortedMap[i] = new TreeMap<Float,List<Integer>>();
@@ -184,32 +183,16 @@ public class Dataset implements Iterable<FeatureVector>{
 	}
 //Distance Matrix and Funcionallity 
 	
-	private float[][] getDistanceMatrix() {
-		if (this.distanceMatrix == null){
-			this.createDistanceMatrix();
+	public static float[][] getDistanceMatrix() {
+		if (distanceMatrix == null){
+			throw new RuntimeException("Distance Matrix not available");
 		}
 		return distanceMatrix;
 	}
 
-	/**
-	 * Diese Methode erstellt eine Distanzmatrix aller Elemente in dem Datenset
-	 */
-	private void createDistanceMatrix() {
-		float distance;
-		this.distanceMatrix = new float[this.vectors.size()][this.vectors.size()];
-		for (int i = 0; i < this.vectors.size() - 1; i++) {
-			for (int j = i + 1; j < this.vectors.size(); j++) {
 
-				distance = this.distanceMeasure.calculate(this.vectors.get(i)
-						.getFeatures(), this.vectors.get(j).getFeatures());
-				this.distanceMatrix[i][j] = distance;
-			}
-		}
-
-	}
-
-	private void setDistanceMatrix(float[][] distanceMatrix) {
-		this.distanceMatrix = distanceMatrix;
+	public static void setDistanceMatrix(float[][] distanceMatrix) {
+		Dataset.distanceMatrix = distanceMatrix;
 	}
 	
 	/**
@@ -222,9 +205,9 @@ public class Dataset implements Iterable<FeatureVector>{
 	 */
 	private float getDistance (int pointId1, int pointId2){
 		if (pointId1 < pointId2){
-			return this.distanceMatrix[pointId1][pointId2];
+			return getDistanceMatrix()[pointId1][pointId2];
 		} else {
-			return this.distanceMatrix[pointId2][pointId1];
+			return getDistanceMatrix()[pointId2][pointId1];
 		}
 	}
 	
@@ -241,7 +224,7 @@ public class Dataset implements Iterable<FeatureVector>{
 	 * 
 	 * @returna a list of all the points in this dataset
 	 */
-	public List <FeatureVector> getAllPoints(){
+	public List <GraphElement> getAllPoints(){
 		return this.vectors;
 	}
 	

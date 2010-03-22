@@ -13,7 +13,7 @@ import distance.EuclideanDistance;
 
 import validationIndices.DBIndex;
 import validationIndices.JaccardIndex;
-import algorithms.KMeans;
+import algorithms.KMedoids;
 import algorithms.Leader;
 
 /**
@@ -29,7 +29,7 @@ public class JaccardIndexTest {
 		InputReader inputReader = new InputReader();
 		//this.testset =inputReader.readFromfile("C:\\Users\\Markus\\Documents\\Masterarbeit\\Workspace\\Clusterer\\src\\90.valid");
 		this.trivialTestset =inputReader.readFromfile("C:\\Users\\Markus\\Documents\\Masterarbeit\\Workspace\\Clusterer\\src\\easy.valid");
-		KMeans kmeans = new KMeans(new EuclideanDistance(),3) ;
+		KMedoids kmeans = new KMedoids(new EuclideanDistance(),3) ;
 		kmeans.doClustering(trivialTestset);
 
 	}

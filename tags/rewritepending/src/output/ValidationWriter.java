@@ -234,7 +234,7 @@ public class ValidationWriter {
 	 * @param dataset
 	 */
 	public static void printValidationIndices(String title, Map<String,String> params,Dataset dataset){
-		int dim = dataset.get(0).getDimension();
+		float dim = dataset.get(0).getDimension();
 		Map<Integer, Cluster> clustermap = dataset.getClustermap();
 		String unclassified = (clustermap.get(Element.UNCLASSIFIED) == null) ? "none" : String.valueOf(clustermap.get(Element.UNCLASSIFIED).size());
 		System.out.println();

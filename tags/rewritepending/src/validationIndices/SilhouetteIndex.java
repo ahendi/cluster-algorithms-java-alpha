@@ -4,7 +4,7 @@
 package validationIndices;
 
 import input.Dataset;
-import input.FeatureVector;
+import input.GraphElement;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,23 +31,23 @@ public class SilhouetteIndex {
 			//Index is not defined for k=1. needs at least 2 clusters
 			return Float.NaN;
 		}
-		for (FeatureVector currentElement : clusteredData) {
+		for (GraphElement currentElement : clusteredData) {
 			//for the current element get its cluster
 			 Cluster contCluster = clustermap.get(currentElement.getCalculatedClusternumber());
 			 //calculate average dist to other elements in the cluster
 			
 			 float avgInClusterDist = 0f, dist = 0f ;
 			 int counter=0;
-			 for (FeatureVector clusterElement : contCluster.getClusterelements()){
+			 for (GraphElement clusterElement : contCluster.getClusterelements()){
 				 // dist to every element except self
 				 if (clusterElement != currentElement){
-					 dist =ed.calculate(currentElement.getFeatures(), 
-							 clusterElement.getFeatures());
+
+					 dist = currentElement.calculateDistance(clusterElement);
 					 avgInClusterDist += dist;
 					 counter++;
 				 }
 			 }
-			 assert (counter == contCluster.size()-1):"Element "+currentElement.getFeatures()+" could not be found in the cluster with its asigned clusternumber "+currentElement.getCalculatedClusternumber();
+			 assert (counter == contCluster.size()-1):"Element with id "+currentElement.getId()+" could not be found in the cluster with its asigned clusternumber "+currentElement.getCalculatedClusternumber();
 			 if (counter >0){
 			 avgInClusterDist = avgInClusterDist /counter; //this is value ai
 			 }
@@ -58,9 +58,8 @@ public class SilhouetteIndex {
 				 if (currClusternumber != currentElement.getCalculatedClusternumber()){
 					 Cluster otherCluster = clustermap.get(currClusternumber);
 					 //calculate average dist to elements
-					 for(FeatureVector clusterElement : otherCluster.getClusterelements()){
-						dist =  ed.calculate(clusterElement.getFeatures(), 
-								 currentElement.getFeatures());
+					 for(GraphElement clusterElement : otherCluster.getClusterelements()){
+						dist = clusterElement.calculateDistance(currentElement);
 						avgOutClusterDist += dist;
 					 }
 					  avgOutClustDists.add(avgOutClusterDist/otherCluster.size());

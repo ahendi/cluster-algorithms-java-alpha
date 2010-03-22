@@ -29,12 +29,11 @@ public class DunnIndex {
 		 float temp = 0;
 		 float clustDist  ;
 		 Cluster clusterA, clusterB;
-		 EuclideanDistance dist = new EuclideanDistance();  //could be passed as param
-		 Linkage singleLinkage = new SingleLinkage(dist);
+		 Linkage singleLinkage = new SingleLinkage();
 		 
 		 for (int i = 0; i < clusterIds.length; i++) {
 			clusterA = clustermap.get(clusterIds[i]);
-			temp = clusterA.getMaxIntraClusterDistance(dist);
+			temp = clusterA.getMaxIntraClusterDistance();
 			if (temp > maxIntraClusterdist) {
 				maxIntraClusterdist = temp;
 			}

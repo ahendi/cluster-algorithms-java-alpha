@@ -19,8 +19,10 @@ import distance.EuclideanDistance;
 		public static void main(String[] args) {
 			InputReader inputReader = new InputReader();
 			//this.testset =inputReader.readFromfile("C:\\Users\\Markus\\Documents\\Masterarbeit\\Workspace\\Clusterer\\src\\90.valid");
+			
+			//todo import distance matrix
 			Dataset dataSet =InputReader.readFromfile("C:\\Users\\Markus\\Documents\\Masterarbeit\\Workspace\\Clusterer\\src\\easy.valid");
-			GlobalKMeans gkmeansClusterer = new GlobalKMeans(new EuclideanDistance());
+			GlobalKMeans gkmeansClusterer = new GlobalKMeans();
 		
 			CIndex cIndex = new CIndex();
 			RandIndex randIndex = new RandIndex();

@@ -8,7 +8,7 @@ import java.util.List;
 
 import distance.EuclideanDistance;
 import input.Dataset;
-import input.FeatureVector;
+import input.GraphElement;
 
 /**
  * @author Markus
@@ -28,8 +28,8 @@ public class GoodmanKruskal {
 	 */
 	public float calculateIndex(Dataset clusteredSet) {
 		EuclideanDistance ed = new EuclideanDistance();
-		FeatureVector vectI;
-		FeatureVector vectJ;
+		GraphElement vectI;
+		GraphElement vectJ;
 		float distanceIJ;
 		float distanceRS;
 		int differentClusterIJ;
@@ -49,7 +49,7 @@ public class GoodmanKruskal {
 				//calculate it already now so we do it only once
 				vectI = clusteredSet.get(i);
 				vectJ = clusteredSet.get(j);
-				distanceMatrix[i][j] = ed.calculate(vectI.getFeatures(),vectJ.getFeatures());
+				distanceMatrix[i][j] = vectI.calculateDistance(vectJ);
 				clusterParity[i][j] = (byte) ((vectI.getCalculatedClusternumber() == vectJ
 						.getCalculatedClusternumber()) ? 0 : 1);
 			}

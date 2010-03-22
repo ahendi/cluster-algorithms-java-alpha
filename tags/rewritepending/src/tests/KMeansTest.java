@@ -12,7 +12,7 @@ import input.InputReader;
 import org.junit.Before;
 import org.junit.Test;
 
-import algorithms.KMeans;
+import algorithms.KMedoids;
 import distance.EuclideanDistance;
 
 /**
@@ -36,7 +36,7 @@ public class KMeansTest {
 		for (Element featureVector : testset) {
 			assertEquals(Element.UNCLASSIFIED ,featureVector.getCalculatedClusternumber() );
 		}
-		KMeans kmenasClusterer = new KMeans();
+		KMedoids kmenasClusterer = new KMedoids();
 		kmenasClusterer.setNumOfClusters(2);
 		kmenasClusterer.setDistanceMeasure(new EuclideanDistance());
 		kmenasClusterer.doClustering(testset);

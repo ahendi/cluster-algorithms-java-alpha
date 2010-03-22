@@ -14,9 +14,9 @@ import java.util.Map;
 import output.ValidationWriter;
 import util.Averager;
 import algorithms.Algorithms;
-import algorithms.FastGlobalKMeans;
+import algorithms.FastGlobalKMedoids;
 import algorithms.HierarchicalClustering;
-import algorithms.KMeans;
+import algorithms.KMedoids;
 import algorithms.Leader;
 import distance.EuclideanDistance;
 import distance.linkage.SingleLinkage;
@@ -71,25 +71,25 @@ public class Runner {
 				ValidationWriter.writeToCSV("result.csv", Algorithms.Leader, indices, params);
 				
 				break;
-			case KMeans:
+			case KMedoids:
 				numOfClusters = Integer.valueOf(args[3]);//Kmeans needs a number of clusters 
-				KMeans kmeans = new KMeans(new EuclideanDistance(),numOfClusters);
+				KMedoids kmeans = new KMedoids(numOfClusters);
 				kmeans.doClustering(dataset);
 				InputReader.writeDatasetToFile(outputFileName , dataset);
 				params = new HashMap<String,String>();
 				params.put(ValidationWriter.KMEANS_K_LABEL,String.valueOf(numOfClusters));
-				ValidationWriter.printValidationIndices("KMEANS", params, dataset);
-				ValidationWriter.writeToCSV("kmeansResults.csv", Algorithms.KMeans, dataset, params);
-				ValidationWriter.writeValidationIndice(outputFileName, "KMeans", params, dataset);
+				ValidationWriter.printValidationIndices("KMedoids", params, dataset);
+				ValidationWriter.writeToCSV("kmeansResults.csv", Algorithms.KMedoids, dataset, params);
+				ValidationWriter.writeValidationIndice(outputFileName, "KMedoids", params, dataset);
 				break;
-			case FastGlobalKMeans:
+			case FastGlobalKMedoids:
 				//Integer upperClusterLimit = (args.length ==4) ? Integer.valueOf(args[3]) : null;
-				FastGlobalKMeans fgkm = new FastGlobalKMeans(new EuclideanDistance());
+				FastGlobalKMedoids fgkm = new FastGlobalKMedoids();
 				upperClusterLimit = (args.length ==4) ? Integer.valueOf(args[3]) : null;
 				fgkm.setLimit(upperClusterLimit);
 				fgkm.doClustering(dataset);
 				InputReader.writeDatasetToFile(outputFileName, dataset);
-				ValidationWriter.writeValidationIndice(outputFileName, "FGKM", params, dataset);
+				ValidationWriter.writeValidationIndice(outputFileName, "FGKMedoid", params, dataset);
 				break;
 			case GlobalKMeans:
 				
@@ -100,7 +100,7 @@ public class Runner {
 			case Hierarchical:
 				
 				HierarchicalClustering hc = new HierarchicalClustering(
-						new SingleLinkage(new EuclideanDistance()),true);
+						new SingleLinkage(),true);
 				upperClusterLimit = (args.length ==4) ? Integer.valueOf(args[3]) : null;
 				hc.setLimit(upperClusterLimit);
 				hc.doClustering(dataset);

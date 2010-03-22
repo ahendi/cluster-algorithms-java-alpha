@@ -5,12 +5,10 @@ package output;
 
 
 import input.Element;
-import input.FeatureVector;
+import input.GraphElement;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import util.CalculationUtil;
 
 import distance.DistanceMeasure;
 
@@ -19,13 +17,13 @@ import distance.DistanceMeasure;
  *
  */
 public class Cluster {
-	private List <FeatureVector> clusterelements;
+	private List <GraphElement> clusterelements;
 	private int clusterid;
-	private float[] centroid;
+	private GraphElement medoid;
 	
 	public Cluster(int clusterId){
 		this.clusterid =clusterId;
-		this.clusterelements = new ArrayList<FeatureVector>();
+		this.clusterelements = new ArrayList<GraphElement>();
 	}
 	
 	
@@ -67,9 +65,9 @@ public class Cluster {
 	 * 
 	 * @param featureVector
 	 */
-	public void add(FeatureVector featureVector) {
+	public void add(GraphElement featureVector) {
 		this.clusterelements.add(featureVector);
-		this.centroid = null; // devalidate centroid because it changed
+		this.medoid = null; // devalidate centroid because it changed
 
 	}
 
@@ -85,37 +83,43 @@ public class Cluster {
 	
 
 	/**
-	 * Calculates the Centroid of this cluster
+	 * Calculates the Medoid of this cluster. The medoid is the element
+	 * of the cluster with the minimal average distance to all other elements.
+	 *  It will be recalculated when there
+	 * was an element added to the cluster before @see add()
 	 */
-	public float[] getCentroid() {
+	public GraphElement getMedoid() {
 
-		if (this.centroid == null || this.centroid.length == 0) {
-
-			// start with the first element
-			float[] sum = this.clusterelements.get(0).getFeatures();
+		if (this.medoid == null) {
+			float minAvgDist ,currElAvg;
+			GraphElement currMedoid, currElement;
+			currMedoid = this.clusterelements.get(0);
+			minAvgDist = currMedoid.calculateAverageDistanceToOthers();
+			
 			for (int i = 1; i < this.clusterelements.size(); i++) {
-				FeatureVector currVect = this.clusterelements.get(i);
-				sum = CalculationUtil.vectorAddition(sum, currVect
-						.getFeatures());
+				currElement = this.clusterelements.get(i);
+				currElAvg = currElement.calculateAverageDistanceToOthers();
+				if (minAvgDist > currElAvg ){
+					minAvgDist = currElAvg;
+					currMedoid = currElement;
+				}
 			}
-			// calculate center of Cluster by dividing sum by number of
-			// clusterelements
-			this.centroid = CalculationUtil.scalarMultiplication(
-					1.0f / this.clusterelements.size(), sum);
+			this.medoid = currMedoid;
 		}
-		return centroid;
+			return this.medoid;
+
 	}
 	//TODO is squaredErrorSum calculated this way?
 	/**
 	 * This method calculates the squaredErrorDistance for the cluster given a 
 	 * passed distance measurement
 	 */
-	public float getSumOfSquaredError(DistanceMeasure dm){
+	public float getSumOfSquaredError(){
 		float squaredErrorSum = 0;
 		float distToCenter;
 		//distance of each element to clustercenter
-		for (FeatureVector element : clusterelements) {
-			distToCenter = dm.calculate(this.getCentroid(), element.getFeatures());
+		for (GraphElement element : clusterelements) {
+			distToCenter = element.calculateDistance(this.getMedoid());
 			//square because we do not want euclidean dist in this case
 			squaredErrorSum += Math.pow(distToCenter,2);
 		}
@@ -128,7 +132,7 @@ public class Cluster {
 	/**
 	 * @return
 	 */
-	public List<FeatureVector> getClusterelements() {
+	public List<GraphElement> getClusterelements() {
 		return clusterelements;
 	}
 
@@ -137,22 +141,20 @@ public class Cluster {
 	/**
 	 * this returns the maximum distance that exists between to feature vectors in 
 	 * this cluster. 
-	 * @param dist This is the symetric distance measure used to calulate the distance between
-	 * feature vectors
 	 * 
 	 * 
 	 */
-	public float getMaxIntraClusterDistance(DistanceMeasure dist) {
+	public float getMaxIntraClusterDistance() {
 		
-		FeatureVector a;
-		FeatureVector b;
+		GraphElement a;
+		GraphElement b;
 
 		float maxIntraClusterDistance =0.0f;
 		for (int i= 0 ; i<this.clusterelements.size() -1 ; i++){
 			a = this.clusterelements.get(i);
 			for (int j = i+1 ; j<this.clusterelements.size(); j++){
 				b = this.clusterelements.get(j);
-				float currDist = dist.calculate(a.getFeatures(), b.getFeatures());
+				float currDist = a.calculateDistance(b);
 				if (currDist > maxIntraClusterDistance){
 					maxIntraClusterDistance = currDist;
 				}
