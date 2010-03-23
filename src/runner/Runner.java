@@ -6,10 +6,15 @@ package runner;
 import input.Dataset;
 import input.InputReader;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
 
 import output.ValidationWriter;
 import util.Averager;
@@ -29,9 +34,12 @@ public class Runner {
 
 	/**
 	 * used to run one clustering algorithm from command line
-	 * @param args
+	 * @param args first argument is the algorithm second is the input file and third is the output file
+	 * @throws ParserConfigurationException 
+	 * @throws IOException 
+	 * @throws SAXException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SAXException, IOException, ParserConfigurationException {
 		if (args.length < 3){
 			throw new IllegalArgumentException("Incorrect number of Argumetns");
 		} else{
@@ -43,7 +51,9 @@ public class Runner {
 			Algorithms alg = Enum.valueOf(Algorithms.class, algorithm);
 			Dataset dataset = InputReader.readFromfile(inputFileName);
 			Integer upperClusterLimit,numOfClusters;
-			Float epsilon;
+			Float epsilon; 
+			float[][] distanceMatrix;
+			String distancematrixfile;
 			Map<String, String> params = new HashMap<String, String>();
 			
 			switch (alg) {
@@ -72,20 +82,26 @@ public class Runner {
 				
 				break;
 			case KMedoids:
-				numOfClusters = Integer.valueOf(args[3]);//Kmeans needs a number of clusters 
+				distancematrixfile = args[3];
+				distanceMatrix = InputReader.importDistances(distancematrixfile);
+				Dataset.setDistanceMatrix(distanceMatrix);
+				numOfClusters = Integer.valueOf(args[4]);//Kmeans needs a number of clusters 
 				KMedoids kmeans = new KMedoids(numOfClusters);
 				kmeans.doClustering(dataset);
 				InputReader.writeDatasetToFile(outputFileName , dataset);
 				params = new HashMap<String,String>();
 				params.put(ValidationWriter.KMEANS_K_LABEL,String.valueOf(numOfClusters));
 				ValidationWriter.printValidationIndices("KMedoids", params, dataset);
-				ValidationWriter.writeToCSV("kmeansResults.csv", Algorithms.KMedoids, dataset, params);
+				ValidationWriter.writeToCSV("kmedoidsResults.csv", Algorithms.KMedoids, dataset, params);
 				ValidationWriter.writeValidationIndice(outputFileName, "KMedoids", params, dataset);
 				break;
 			case FastGlobalKMedoids:
 				//Integer upperClusterLimit = (args.length ==4) ? Integer.valueOf(args[3]) : null;
 				FastGlobalKMedoids fgkm = new FastGlobalKMedoids();
-				upperClusterLimit = (args.length ==4) ? Integer.valueOf(args[3]) : null;
+				distancematrixfile = args[3];
+				distanceMatrix = InputReader.importDistances(distancematrixfile);
+				Dataset.setDistanceMatrix(distanceMatrix);
+				upperClusterLimit = (args.length ==5) ? Integer.valueOf(args[4]) : null;
 				fgkm.setLimit(upperClusterLimit);
 				fgkm.doClustering(dataset);
 				InputReader.writeDatasetToFile(outputFileName, dataset);

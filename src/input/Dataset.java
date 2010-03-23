@@ -205,19 +205,26 @@ public class Dataset implements Iterable<GraphElement>{
 	 */
 	private float getDistance (int pointId1, int pointId2){
 		if (pointId1 < pointId2){
-			return getDistanceMatrix()[pointId1][pointId2];
+			return getCalculatedDistanceMatrix()[pointId1][pointId2];
 		} else {
-			return getDistanceMatrix()[pointId2][pointId1];
+			return getCalculatedDistanceMatrix()[pointId2][pointId1];
 		}
 	}
 	
+	/**
+	 * @return
+	 */
+	private float[][] getCalculatedDistanceMatrix() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	public void reset(){
 		for (Element fv : vectors) {
 			fv.setCalculatedClusternumber(Element.UNCLASSIFIED);
 			
 		}
 		this.clusterMap = null;
-		this.distanceMatrix = null;
 		this.neighbourMatrix = null;
 	}
 	/**
