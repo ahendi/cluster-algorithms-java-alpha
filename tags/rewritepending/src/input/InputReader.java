@@ -95,12 +95,12 @@ public class InputReader {
 		}
 		
 	}
-	public static float[][] importDistances(String pathToXMLFileWithDistances) {
+	public static float[][] importDistances(String pathToXMLFileWithDistances) throws SAXException, IOException, ParserConfigurationException {
 
 		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactoryImpl
 				.newInstance();
 		float[][] distanceMatrix =null;
-		try {
+
 			DocumentBuilder documentBuilder = documentBuilderFactory
 					.newDocumentBuilder();
 			Document doc = documentBuilder
@@ -125,17 +125,7 @@ public class InputReader {
 
 			}
 
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			//cant really do much on this one
-			e.printStackTrace();
-		}
+
 		return distanceMatrix;
 	} 
 	

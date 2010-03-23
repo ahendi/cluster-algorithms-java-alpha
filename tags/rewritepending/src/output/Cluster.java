@@ -10,8 +10,6 @@ import input.GraphElement;
 import java.util.ArrayList;
 import java.util.List;
 
-import distance.DistanceMeasure;
-
 /**
  * @author Markus
  *
