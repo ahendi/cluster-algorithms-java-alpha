@@ -3,17 +3,16 @@
  */
 package validationIndices;
 
+import distance.EuclideanDistance;
 import input.Dataset;
 import input.FeatureVector;
+import output.Cluster;
+import util.CalculationUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import output.Cluster;
-import util.CalculationUtil;
-import distance.EuclideanDistance;
 
 /**
  * @author Markus
@@ -56,7 +55,7 @@ public class DBIndex {
 			for (int j = i+1 ; j < keys.size(); j++){
 			//	rMatrix[i][j] = (averageDistance[i] + averageDistance[j])/
 			//					euclDist.calculate(centers[i], centers[j]);
-				//Die Indizes müssten nochmal angeschaut werden. Werden wirklich alle clusternummmern korrekt
+				//Die Indizes muessten nochmal angeschaut werden. Werden wirklich alle clusternummmern korrekt
 				//besucht
 				rMatrix2[i][j] = (averageDistanceMap.get(keys.get(i)) + averageDistanceMap.get(keys.get(j)))/euclDist.calculate(centersMap.get(keys.get(i)), centersMap.get(keys.get(j)));		
 			}

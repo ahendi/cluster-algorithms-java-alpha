@@ -3,26 +3,17 @@
  */
 package output;
 
+import algorithms.Algorithms;
+import au.com.bytecode.opencsv.CSVWriter;
 import input.Dataset;
 import input.FeatureVector;
+import validationIndices.*;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
-
-import validationIndices.BPIndex;
-import validationIndices.CIndex;
-import validationIndices.CalinskiHarabasz;
-import validationIndices.DBIndex;
-import validationIndices.DunnIndex;
-import validationIndices.FowlkesMallowsIndex;
-import validationIndices.JaccardIndex;
-import validationIndices.RandIndex;
-import validationIndices.SilhouetteIndex;
-import algorithms.Algorithms;
-import au.com.bytecode.opencsv.CSVWriter;
 
 /**
  * This is a util class that writes out the result of several validation indices
@@ -61,7 +52,7 @@ public class ValidationWriter {
 	/**
 	 * Calculates and writes out the validation indices for a given clustered
 	 * Dataset. A clustered Dataset is one that consists of elements which have
-	 * their calculatedClusterNumber set. An den pfad des outputfiles wird .indice angehängt
+	 * their calculatedClusterNumber set. An den pfad des outputfiles wird .indice angehaengt
 	 * 
 	 * @param path
 	 * @param dataset

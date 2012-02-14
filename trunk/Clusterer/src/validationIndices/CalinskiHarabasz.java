@@ -3,19 +3,18 @@
  */
 package validationIndices;
 
+import distance.EuclideanDistance;
 import input.Dataset;
 import input.FeatureVector;
+import output.Cluster;
+import util.CalculationUtil;
 
 import java.util.LinkedHashSet;
 import java.util.Map;
 
-import output.Cluster;
-import util.CalculationUtil;
-import distance.EuclideanDistance;
-
 /**
  * @author Markus
- *Dieser Index misst die Güte eines gegebenen Clusterings. Jes besser das Clustering desto
+ *Dieser Index misst die Gï¿½te eines gegebenen Clusterings. Jes besser das Clustering desto
   groesser wird der Index
   
   The idea behind the CH measure is to compute the sum of squared errors
@@ -59,7 +58,7 @@ public class CalinskiHarabasz   {
 				Cluster cluster = clustermap.get(integer);
 				withinSumOfSquares += cluster.getSumOfSquaredError(dm);
 				
-				betweenSumOfSquares += (cluster.size())*Math.pow(dm.calculate(centeroidOfAllData, cluster.getCentroid()),2);
+				betweenSumOfSquares += (cluster.size())*(float)Math.pow(dm.calculate(centeroidOfAllData, cluster.getCentroid()),2);
 
 			}
 
