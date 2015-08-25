@@ -1,0 +1,1 @@
+This projects contains an implementation of some well known methods to cluster feature vectors in Java. Contains implementation of the fast global k-means algorithm, a hierarchical algorithm and some others.
